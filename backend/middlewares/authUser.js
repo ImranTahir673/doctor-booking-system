@@ -6,7 +6,8 @@ const authUser = async (req, res, next) => {
         if (!token) {
             return res.status(401).json({ success: false, message: "Not Authorized. Login again." });
         }
-        const token_decode = jwt.verify(token, process.env.JWT_SECRET);
+        const jwtSecret = process.env.JWT_SECRET || "supersecretjwtkey_doctorbooking_2026";
+        const token_decode = jwt.verify(token, jwtSecret);
         req.body.userId = token_decode.id;
         next();
     } catch (error) {

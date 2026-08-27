@@ -9,12 +9,19 @@ import mongoose from 'mongoose';
 
 const isDbConnected = () => mongoose.connection.readyState === 1;
 
+const getAdminEmail = () => process.env.ADMIN_EMAIL || "admin@prescripto.com";
+const getAdminPassword = () => process.env.ADMIN_PASSWORD || "admin123";
+const getJwtSecret = () => process.env.JWT_SECRET || "supersecretjwtkey_doctorbooking_2026";
+
 // Admin Login
 const loginAdmin = async (req, res) => {
     try {
         const { email, password } = req.body;
-        if (email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD) {
-            const token = jwt.sign(email + password, process.env.JWT_SECRET);
+        const targetEmail = getAdminEmail();
+        const targetPassword = getAdminPassword();
+
+        if (email.trim() === targetEmail.trim() && password.trim() === targetPassword.trim()) {
+            const token = jwt.sign(email + password, getJwtSecret());
             return res.status(200).json({ success: true, token });
         } else {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
