@@ -15,9 +15,17 @@ const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary();
 
+// CORS Middlewares for cross-origin browser requests & custom auth headers
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'token', 'atoken', 'dtoken', 'X-Requested-With', 'Accept']
+}));
+
+app.options('*', cors());
+
 // Middlewares
 app.use(express.json());
-app.use(cors());
 
 // Api Endpoints
 app.use('/api/admin', adminRouter);
