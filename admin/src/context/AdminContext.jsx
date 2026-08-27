@@ -13,6 +13,13 @@ const AdminContextProvider = (props) => {
 
     const backendUrl = "http://localhost:4000";
 
+    const handleAuthError = (error) => {
+        if (error.response?.status === 401 || error.response?.status === 403) {
+            localStorage.removeItem('aToken');
+            setAToken('');
+        }
+    };
+
     const getAllDoctors = async () => {
         try {
             const { data } = await axios.get(backendUrl + '/api/admin/all-doctors', { headers: { atoken: aToken } });
@@ -22,6 +29,7 @@ const AdminContextProvider = (props) => {
                 toast.error(data.message);
             }
         } catch (error) {
+            handleAuthError(error);
             toast.error(error.message);
         }
     };
@@ -36,6 +44,7 @@ const AdminContextProvider = (props) => {
                 toast.error(data.message);
             }
         } catch (error) {
+            handleAuthError(error);
             toast.error(error.message);
         }
     };
@@ -49,6 +58,7 @@ const AdminContextProvider = (props) => {
                 toast.error(data.message);
             }
         } catch (error) {
+            handleAuthError(error);
             toast.error(error.message);
         }
     };
@@ -63,6 +73,7 @@ const AdminContextProvider = (props) => {
                 toast.error(data.message);
             }
         } catch (error) {
+            handleAuthError(error);
             toast.error(error.message);
         }
     };
@@ -76,6 +87,7 @@ const AdminContextProvider = (props) => {
                 toast.error(data.message);
             }
         } catch (error) {
+            handleAuthError(error);
             toast.error(error.message);
         }
     };

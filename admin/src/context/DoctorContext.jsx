@@ -13,6 +13,13 @@ const DoctorContextProvider = (props) => {
     const [dashData, setDashData] = useState(false);
     const [profileData, setProfileData] = useState(false);
 
+    const handleAuthError = (error) => {
+        if (error.response?.status === 401 || error.response?.status === 403) {
+            localStorage.removeItem('dToken');
+            setDToken('');
+        }
+    };
+
     const getAppointments = async () => {
         try {
             const { data } = await axios.get(backendUrl + '/api/doctor/appointments', { headers: { dtoken: dToken } });
@@ -22,8 +29,8 @@ const DoctorContextProvider = (props) => {
                 toast.error(data.message);
             }
         } catch (error) {
+            handleAuthError(error);
             console.log(error);
-            toast.error(error.message);
         }
     };
 
@@ -37,8 +44,8 @@ const DoctorContextProvider = (props) => {
                 toast.error(data.message);
             }
         } catch (error) {
+            handleAuthError(error);
             console.log(error);
-            toast.error(error.message);
         }
     };
 
@@ -52,8 +59,8 @@ const DoctorContextProvider = (props) => {
                 toast.error(data.message);
             }
         } catch (error) {
+            handleAuthError(error);
             console.log(error);
-            toast.error(error.message);
         }
     };
 
@@ -66,8 +73,8 @@ const DoctorContextProvider = (props) => {
                 toast.error(data.message);
             }
         } catch (error) {
+            handleAuthError(error);
             console.log(error);
-            toast.error(error.message);
         }
     };
 
@@ -78,8 +85,8 @@ const DoctorContextProvider = (props) => {
                 setProfileData(data.profileData);
             }
         } catch (error) {
+            handleAuthError(error);
             console.log(error);
-            toast.error(error.message);
         }
     };
 

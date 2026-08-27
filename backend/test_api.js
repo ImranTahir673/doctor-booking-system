@@ -47,12 +47,13 @@ async function runTests() {
         console.log("5. Admin Login status:", adminRes.status, "Admin Token:", !!adminData.token);
         const adminToken = adminData.token;
 
-        // 6. Book Appointment
+        // 6. Book Appointment with unique dynamic slot
         const firstDoc = docData.doctors[0];
+        const uniqueSlotDate = `slot_${Date.now()}`;
         const bookRes = await fetch(`${BASE_URL}/api/user/book-appointment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', token: userToken },
-            body: JSON.stringify({ docId: firstDoc._id, slotDate: "30_8_2026", slotTime: "10:00 AM" })
+            body: JSON.stringify({ docId: firstDoc._id, slotDate: uniqueSlotDate, slotTime: "10:00 AM" })
         });
         const bookData = await bookRes.json();
         console.log("6. Appointment Booking status:", bookRes.status, "Message:", bookData.message);

@@ -28,7 +28,7 @@ const AppContextProvider = (props) => {
         }
     };
 
-    // Load User Profile Data
+    // Load User Profile Data with automatic 401 token cleanup
     const loadUserProfileData = async () => {
         try {
             const { data } = await axios.get(backendUrl + '/api/user/get-profile', { headers: { token } });
@@ -39,7 +39,13 @@ const AppContextProvider = (props) => {
             }
         } catch (error) {
             console.log(error);
-            toast.error(error.message);
+            if (error.response?.status === 401) {
+                localStorage.removeItem('token');
+                setToken('');
+                setUserData(false);
+            } else {
+                toast.error(error.message);
+            }
         }
     };
 
