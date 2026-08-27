@@ -28,5 +28,9 @@ app.get('/', (req, res) => {
     res.status(200).send('Doctor Booking System API Working');
 });
 
-// Start Server
-app.listen(port, () => console.log(`Server started on PORT : ${port}`));
+// Start Server locally
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    app.listen(port, () => console.log(`Server started on PORT : ${port}`));
+}
+
+export default app;
