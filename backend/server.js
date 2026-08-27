@@ -11,23 +11,26 @@ import userRouter from './routes/userRoute.js';
 const app = express();
 const port = process.env.PORT || 4000;
 
-// Connect to Database & Services
+// Connect DB
 connectDB();
 connectCloudinary();
 
-// CORS Middlewares for cross-origin browser requests & custom auth headers
-app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'token', 'atoken', 'dtoken', 'X-Requested-With', 'Accept']
-}));
+// Ultra-Permissive CORS Middleware for Vercel Serverless Functions
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS, PATCH');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, token, atoken, dtoken');
+    
+    if (req.method === 'OPTIONS') {
+        return res.status(200).json({ success: true });
+    }
+    next();
+});
 
-app.options('*', cors());
-
-// Middlewares
+app.use(cors());
 app.use(express.json());
 
-// Api Endpoints
+// API Endpoints
 app.use('/api/admin', adminRouter);
 app.use('/api/doctor', doctorRouter);
 app.use('/api/user', userRouter);
