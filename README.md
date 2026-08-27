@@ -4,6 +4,13 @@ Prescripto is an enterprise-grade full-stack Doctor Appointment Booking web appl
 
 ---
 
+## 🌐 Live Demo Links
+
+- 🔗 **Patient Web App:** [https://frontend-gamma-gilt-15.vercel.app](https://frontend-gamma-gilt-15.vercel.app)
+- 🔗 **Admin & Doctor Portal:** [https://admin-black-eta.vercel.app](https://admin-black-eta.vercel.app)
+
+---
+
 ## 🌟 Key Features
 
 ### 👨‍⚕️ Patient Web App (`/frontend`)
