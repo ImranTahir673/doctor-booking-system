@@ -4,14 +4,6 @@ import { toast } from 'react-toastify';
 
 export const AdminContext = createContext();
 
-const getBackendUrl = () => {
-    if (import.meta.env.VITE_BACKEND_URL) return import.meta.env.VITE_BACKEND_URL;
-    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-        return "https://backend-livid-sigma-47.vercel.app";
-    }
-    return "http://localhost:4000";
-};
-
 const AdminContextProvider = (props) => {
 
     const [aToken, setAToken] = useState(localStorage.getItem('aToken') ? localStorage.getItem('aToken') : '');
@@ -19,7 +11,7 @@ const AdminContextProvider = (props) => {
     const [appointments, setAppointments] = useState([]);
     const [dashData, setDashData] = useState(false);
 
-    const backendUrl = getBackendUrl();
+    const backendUrl = "https://backend-livid-sigma-47.vercel.app";
 
     const handleAuthError = (error) => {
         if (error.response?.status === 401 || error.response?.status === 403) {

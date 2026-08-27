@@ -4,17 +4,9 @@ import { toast } from 'react-toastify';
 
 export const DoctorContext = createContext();
 
-const getBackendUrl = () => {
-    if (import.meta.env.VITE_BACKEND_URL) return import.meta.env.VITE_BACKEND_URL;
-    if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-        return "https://backend-livid-sigma-47.vercel.app";
-    }
-    return "http://localhost:4000";
-};
-
 const DoctorContextProvider = (props) => {
 
-    const backendUrl = getBackendUrl();
+    const backendUrl = "https://backend-livid-sigma-47.vercel.app";
 
     const [dToken, setDToken] = useState(localStorage.getItem('dToken') ? localStorage.getItem('dToken') : '');
     const [appointments, setAppointments] = useState([]);
