@@ -7,7 +7,7 @@ export const DoctorContext = createContext();
 const getBackendUrl = () => {
     if (import.meta.env.VITE_BACKEND_URL) return import.meta.env.VITE_BACKEND_URL;
     if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-        return "https://doctor-booking-system.vercel.app";
+        return "https://backend-livid-sigma-47.vercel.app";
     }
     return "http://localhost:4000";
 };
